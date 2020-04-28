@@ -1,28 +1,21 @@
-!.keep
+/ci/assets
+/ci/package
+/ci/build
+/ci/release
+/ci/nginx/docker-compose.override.yml
+**/00_local
+**/.DS_Store
+**/node_modules
+**/cli
+**/*.log
+**/target
+**/.settings
+**/.project
+**/.classpath
+.*.swp
+__pycache__/
+*.py[cod]
 
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+### Intellij ###
 *.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-/build/
-
-### VS Code ###
-.vscode/
+.idea
