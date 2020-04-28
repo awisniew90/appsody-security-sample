@@ -1,0 +1,111 @@
+apiVersion: openliberty.io/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  annotations:
+    architecture: x86_64
+    authoritative-source-url: registry.access.redhat.com
+    build-date: 2019-10-29T16:44:53.794580
+    commit.stack.appsody.dev/author: Mike Andrasak <andrasak@us.ibm.com>
+    commit.stack.appsody.dev/committer: GitHub <noreply@github.com>
+    commit.stack.appsody.dev/contextDir: /incubator/java-openliberty
+    commit.stack.appsody.dev/date: Wed Apr 15 12:52:01 2020 +0100
+    commit.stack.appsody.dev/message: 'java-openliberty: Notify of the removal of
+      quick-start-security.xml (#759)'
+    description: The Universal Base Image is designed and engineered to be the base
+      layer for all of your containerized applications, middleware and utilities.
+      This base image is freely redistributable, but Red Hat only supports Red Hat
+      technologies through subscriptions for Red Hat products. This image is maintained
+      by Red Hat and updated regularly.
+    distribution-scope: public
+    image.opencontainers.org/created: "2020-04-27T20:34:56-04:00"
+    k8s.io/description: The Universal Base Image is designed and engineered to be
+      the base layer for all of your containerized applications, middleware and utilities.
+      This base image is freely redistributable, but Red Hat only supports Red Hat
+      technologies through subscriptions for Red Hat products. This image is maintained
+      by Red Hat and updated regularly.
+    k8s.io/display-name: Red Hat Universal Base Image 8
+    maintainer: Red Hat, Inc.
+    name: ubi8
+    openshift.io/expose-services: ""
+    openshift.io/tags: base rhel8
+    redhat.com/build-host: cpt-1002.osbs.prod.upshift.rdu2.redhat.com
+    redhat.com/component: ubi8-container
+    redhat.com/license_terms: https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI
+    release: "277"
+    stack.appsody.dev/authors: Mike Andrasak <andrasak@us.ibm.com>, Andy Mauer <ajmauer@us.ibm.com>,
+      Scott Kurz <skurz@us.ibm.com>, Adam Wisniewski <awisniew@us.ibm.com>
+    stack.appsody.dev/configured: docker.io/appsody/java-openliberty:0.2
+    stack.appsody.dev/created: "2020-04-15T11:54:37Z"
+    stack.appsody.dev/description: Eclipse MicroProfile & Jakarta EE on Open Liberty
+      & OpenJ9 using Maven
+    stack.appsody.dev/documentation: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/README.md
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/revision: 1ed4340f1ee1d76a908dcb759e2c1d02e50b747c
+    stack.appsody.dev/source: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty/image
+    stack.appsody.dev/tag: docker.io/appsody/java-openliberty:0.2.8
+    stack.appsody.dev/title: Open Liberty
+    stack.appsody.dev/url: https://github.com/appsody/stacks/tree/master/incubator/java-openliberty
+    summary: Provides the latest release of Red Hat Universal Base Image 8.
+    url: https://access.redhat.com/containers/#/registry.access.redhat.com/ubi8/images/8.1-277
+    vcs-ref: c42933bcdbf9f1c232e981a5e40de257c3534c8e
+    vcs-type: git
+    vendor: Red Hat, Inc.
+    version: "8.1"
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: appsody-security-sample
+    stack.appsody.dev/id: java-openliberty
+    stack.appsody.dev/version: 0.2.8
+  name: appsody-security-sample
+spec:
+  monitoring:
+    endpoints:
+    - basicAuth:
+        password:
+          key: password
+          name: mysecret
+        username:
+          key: username
+          name: mysecret
+      interval: 5s
+      port: HTTPS
+      scheme: HTTPS
+      tlsConfig:
+        insecureSkipVerify: true
+    labels:
+      app-monitoring: ''
+  env:
+  - name: STACK_USERNAME
+    valueFrom:
+      secretKeyRef:
+        key: username
+        name: mysecret
+  - name: STACK_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        key: password
+        name: mysecret
+  applicationImage: dev.local/appsody-security-sample
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9443
+    type: NodePort
+  version: 1.0.0

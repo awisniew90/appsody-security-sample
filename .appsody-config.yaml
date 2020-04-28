@@ -1,0 +1,3 @@
+id: "20200427203942.61396300"
+project-name: appsody-security-sample
+stack: docker.io/appsody/java-openliberty:0.2
